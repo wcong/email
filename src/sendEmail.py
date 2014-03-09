@@ -27,7 +27,7 @@ def sendEmalSSL( conf = email_conf() ):
 
     #邮件内容 
     contentFile = conf.content
-    msg.attach(MIMEText(open( contentFile ).read()))
+    msg.attach(MIMEText(open( contentFile ).read(),'html'))
 
     #添加附件， 特别是 文件名为中文时 需要转换为 gb2312
     fileList = conf.attacnemt
