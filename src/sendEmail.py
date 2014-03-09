@@ -33,9 +33,10 @@ def sendEmalSSL( conf = email_conf() ):
     fileList = conf.attacnemt
     if len(  fileList  ) > 0:
         for attachmentFile in fileList:
-            att = MIMEText(open(attachmentFile, 'rb').read(), 'base64', 'utf8')
+            att = MIMEText(open(attachmentFile, 'r').read(), 'base64', 'utf8')
             att["Content-Type"] = 'application/octet-stream'
-            att["Content-Disposition"] = 'attachment; filename="' + attachmentFile.decode('utf8').encode('gb2312') + '"'
+            formateFileName = getFileName( attachmentFile )
+            att["Content-Disposition"] = 'attachment; filename="' + formateFileName.decode('utf8').encode('gb2312') + '"'
             msg.attach(att)
     # header
     msg['to'] = ','.join(conf.to)
@@ -46,10 +47,19 @@ def sendEmalSSL( conf = email_conf() ):
     server = smtplib.SMTP_SSL(conf.server,465)  
 
     # 调试
-    server.set_debuglevel(1)
+    #server.set_debuglevel(1)
 
     server.login(conf.user,conf.password)  
 
     server.sendmail( conf.host,','.join(conf.to),msg.as_string() );
 
     server.close();
+
+# get file name by path
+def getFileName(path):
+    split = path.split('/')
+    fileName = split[len(split) -1]
+    return fileName
+     
+
+sendEmalSSL()
