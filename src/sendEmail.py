@@ -17,7 +17,7 @@ class email_conf:
     host = '1203316364@qq.com' 
     server = 'smtp.exmail.qq.com'
     user = '1203316364@qq.com'
-    password = 'wc13183162776'
+    password = '*'
     header = '运营报表'
      
 
